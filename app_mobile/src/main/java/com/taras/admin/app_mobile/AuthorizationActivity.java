@@ -25,7 +25,7 @@ public class AuthorizationActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mReference;
 
-    private EditText mUserName;
+    private EditText mUserPassword;
     private EditText mUserEmail;
 
     @Override
@@ -36,25 +36,25 @@ public class AuthorizationActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mReference = mFirebaseDatabase.getReference("Authorization");
 
-        mUserName = findViewById(R.id.user_name);
+        mUserPassword = findViewById(R.id.user_password);
         mUserEmail = findViewById(R.id.user_email);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthListener = firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() != null) {
                 Intent intent = new Intent(AuthorizationActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }
         };
 
         findViewById(R.id.login).setOnClickListener(v -> {
-            String userName = mUserName.getText().toString();
+            String userPassword = mUserPassword.getText().toString();
             String userEmail = mUserEmail.getText().toString();
 
-            if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(userEmail)) {
-                mFirebaseAuth.signInWithEmailAndPassword(userName, userEmail).addOnCompleteListener(task -> {
+            if (!TextUtils.isEmpty(userPassword) && !TextUtils.isEmpty(userEmail)) {
+                mFirebaseAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
                         Toast.makeText(getApplicationContext(), getString(R.string.authorization_failed), Toast.LENGTH_SHORT).show();
                     }
