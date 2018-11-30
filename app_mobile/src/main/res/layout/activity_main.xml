@@ -108,10 +108,10 @@
             <Button
                 android:id="@+id/logout"
                 android:layout_width="200dp"
-                android:onClick="onLogoutClick"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="Logout"/>
+                android:onClick="onLogoutClick"
+                android:text="@string/logout"/>
         </LinearLayout>
     </LinearLayout>
 
